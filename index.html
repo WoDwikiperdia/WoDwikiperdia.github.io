@@ -68,7 +68,7 @@ h3{
         <li><a href="#">Notizie</a></li>
         <li><a href="./PNG.html">Png</a></li>
     </ul>
-		<img src="./wiki.svg.png" alt="wiki" width="100%" height="100px">
+		
 		
 </nav>
 </div>
@@ -77,17 +77,20 @@ h3{
     <p>AGGIORNAMENTI:</p>
     <ul id="filelist"></ul>
 </div>
-
 <div class="center">
     <div class="section">
         <div style="background-color: #ADD8E6; height: 5px; width: 100%;"></div>
         <h3 style="margin-top: -20px;">NOTIZIA DEL GIORNO</h3>
-        <p>testo notizia del giorno</p>
+        <p>
+		Roma, 22 ottobre 2023 - Nella notte scorsa, un'esplosione ha scosso la zona attorno il cimitero del Verano durante un'esercitazione condotta dai Reparti Operazioni Speciali (ROS) delle forze dell'ordine.
+		L'incidente è stato causato da una fuga di gas che ha portato alla distruzione di un capanno degli attrezzi situato in prossimità dell'area dell'esercitazione
+	       <a href="./22_ottobre_2023.html">Png</a>
+	</p>
          <h3>LINK UTILI</h3>
             <ul>
-        <li><a>link1</a></li>
-        <li><a>link2</a></li>
-        <li><a>link2</a></li>
+        <li><a href="https://www.cimitericapitolini.it/public/files/cimiteri-di-roma/elenco-cimiteri/AMA_Mappa_Verano_A3_2015_V4_WEB.pdf">mappa del verano</a></li>
+        <li><a href="./ScandaloTorre.html">Scandalo a Torre  Angela</a>
+        <li><a href="./https://biotechgenix.github.io/">BioTechGenix</a></li>
     </ul>
     </div>
 </div>
@@ -120,36 +123,5 @@ h3{
             console.error("Errore durante il recupero dei file dalla repository GitHub:", error);
         });
 </script>
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-  const searchForm = document.querySelector('form');
-  const searchInput = document.querySelector('#search');
-  
-  searchForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const searchTerm = searchInput.value.toLowerCase();
-
-    // Esegui la ricerca nei link della pagina
-    const links = document.querySelectorAll('a');
-    links.forEach(link => {
-      if (link.textContent.toLowerCase().includes(searchTerm)) {
-        // Trovato un link corrispondente, reindirizza l'utente
-        window.location.href = link.href;
-      }
-    });
-
-    // Esegui la ricerca nei link interni alle stesse pagine
-    const internalLinks = document.querySelectorAll('a[href^="#"]');
-    internalLinks.forEach(internalLink => {
-      if (internalLink.textContent.toLowerCase().includes(searchTerm)) {
-        // Trovato un link interno corrispondente, reindirizza l'utente
-        window.location.href = internalLink.href;
-      }
-    });
-  });
-});
-	
-</script>
-
 </body>
 </html>
