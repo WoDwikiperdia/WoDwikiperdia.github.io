@@ -120,7 +120,36 @@ h3{
             console.error("Errore durante il recupero dei file dalla repository GitHub:", error);
         });
 </script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+  const searchForm = document.querySelector('form');
+  const searchInput = document.querySelector('#search');
+  
+  searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const searchTerm = searchInput.value.toLowerCase();
 
+    // Esegui la ricerca nei link della pagina
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+      if (link.textContent.toLowerCase().includes(searchTerm)) {
+        // Trovato un link corrispondente, reindirizza l'utente
+        window.location.href = link.href;
+      }
+    });
+
+    // Esegui la ricerca nei link interni alle stesse pagine
+    const internalLinks = document.querySelectorAll('a[href^="#"]');
+    internalLinks.forEach(internalLink => {
+      if (internalLink.textContent.toLowerCase().includes(searchTerm)) {
+        // Trovato un link interno corrispondente, reindirizza l'utente
+        window.location.href = internalLink.href;
+      }
+    });
+  });
+});
+	
+</script>
 
 </body>
 </html>
