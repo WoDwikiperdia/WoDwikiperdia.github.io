@@ -93,28 +93,34 @@ h3{
 </div>
 
 <script type="text/javascript">
-    const fileList = [
-        {name: "file1.html", dateModified: "2023-10-23"},
-        {name: "file2.html", dateModified: "2023-10-25"},
-        {name: "file3.html", dateModified: "2023-10-26"}
-    ];
+    // Imposta il nome della repository GitHub
+    const githubRepo = "WoDwikiperdia/WoDwikiperdia.github.io";
+    
+    // Ottieni l'elenco dei file dalla repository GitHub
+    fetch(`https://api.github.com/repos/${githubRepo}/contents/`)
+        .then(response => response.json())
+        .then(files => {
+            const filelistElement = document.getElementById("filelist");
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-    const filelistElement = document.getElementById("filelist");
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-    for (const file of fileList) {
-        const fileDate = new Date(file.dateModified);
-        if (fileDate > oneWeekAgo) {
-            const listItem = document.createElement("li");
-            const link = document.createElement("a");
-            link.href = "./"+file.name;
-	    link.textContent = file.name;
-            listItem.appendChild(link);
-            filelistElement.appendChild(listItem);
-        }
-    }
+            for (const file of files) {
+                const fileDate = new Date(file.updated_at);
+                if (fileDate > oneWeekAgo) {
+                    const listItem = document.createElement("li");
+                    const link = document.createElement("a");
+                    link.href = file.html_url;
+                    link.textContent = file.name;
+                    listItem.appendChild(link);
+                    filelistElement.appendChild(listItem);
+                }
+            }
+        })
+        .catch(error => {
+            console.error("Errore durante il recupero dei file dalla repository GitHub:", error);
+        });
 </script>
+
 
 </body>
 </html>
