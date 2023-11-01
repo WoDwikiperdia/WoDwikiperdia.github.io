@@ -95,32 +95,37 @@ h3{
 </div>
 
 <script type="text/javascript">
-    // Imposta il nome della repository GitHub
-    const githubRepo = "WoDwikiperdia/WoDwikiperdia.github.io";
-    
-    // Ottieni l'elenco dei file dalla repository GitHub
-    fetch(`https://api.github.com/repos/${githubRepo}/contents/`)
-        .then(response => console.log(files))
-        .then(files => {
-            const filelistElement = document.getElementById("filelist");
-            const oneWeekAgo = new Date();
-            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+   // Imposta il nome della repository GitHub
+const githubRepo = "WoDwikiperdia/WoDwikiperdia.github.io";
 
-            for (const file of files) {
-                const fileDate = new Date(file.updated_at);
-                if (fileDate > oneWeekAgo) {
-                    const listItem = document.createElement("li");
-                    const link = document.createElement("a");
-                    link.href = file.html_url;
-                    link.textContent = file.name;
-                    listItem.appendChild(link);
-                    filelistElement.appendChild(listItem);
-                }
+// Ottieni l'elenco dei file dalla repository GitHub
+fetch(`https://api.github.com/repos/${githubRepo}/contents/`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Errore durante il recupero dei file dalla repository GitHub");
+        }
+        return response.json();
+    })
+    .then(files => {
+        const filelistElement = document.getElementById("filelist");
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+        for (const file of files) {
+            const fileDate = new Date(file.updated_at);
+            if (fileDate > oneWeekAgo) {
+                const listItem = document.createElement("li");
+                const link = document.createElement("a");
+                link.href = file.html_url;
+                link.textContent = file.name;
+                listItem.appendChild(link);
+                filelistElement.appendChild(listItem);
             }
-        })
-        .catch(error => {
-            console.error("Errore durante il recupero dei file dalla repository GitHub:", error);
-        });
+        }
+    })
+    .catch(error => {
+        console.error(error.message);
+    });
 </script>
 </body>
 </html>
