@@ -2,89 +2,136 @@
 <html>
 <head>
 <style>
-  header {
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+    }
+
+    header {
         background-color: #0072b5;
         padding: 10px;
         text-align: center;
-  }  
-.left {
-  float: left;
-  width: 20%;
-  height: 100px;
-  background-color: #f2f2f2;
-  overflow: hidden;
+    }
 
-.center {
-  margin: auto;
-  width: 80%;
-  height: 100px;
-  background-color: #f2f2f2;
-}
+    label {
+        color: #0072b5;
+    }
 
-#menuservizio {
-  width: 100%;
-  height: 36px;
-  background-color: #f2f2f2;
-  text-align: center;
-}
-	
-h3{
-  background-color: #b5f0ff;
-  text-align: center;
-}
-   p{
-       text-align: center;
-   }
+    form {
+        display: inline-block;
+    }
 
-	
-.section p {
-  background-color: #ADD8E6;
-}
+    input[type="text"] {
+        width: 200px;
+        padding: 5px;
+    }
 
-.section ul {
-  text-align: center;
-}
+    input[type="submit"] {
+        background-color: #0072b5;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
 
-.section li {
-  text-align: center;
-}
+    .left {
+        float: left;
+        width: 20%;
+        background-color: #ADD8E6;
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+        z-index: 1;
+        position: Absolute;
+    }
+
+    .center {
+        margin: auto;
+        width: 80%;
+        background-color: #f2f2f2;
+        padding: 20px;
+        z-index: 10;
+    }
+
+    #menuservizio {
+        width: 100%;
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+
+    h3 {
+        background-color: #0072b5;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+
+    p {
+        text-align: left;
+    }
+
+    .section {
+        background-color: #ADD8E6;
+        padding: 10px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul li {
+        text-align: center;
+        padding: 5px;
+    }
+
+    ul li a {
+        text-decoration: none;
+        color: #0072b5;
+    }
+
+    ul li a:hover {
+        text-decoration: underline;
+    }
 </style>
 </head>
 <body>
-<header>	
-    	<form action="#" method="get" >
-				<label for="search">Cerca:</label>
-				<input type="text" id="search" name="search">
-				<input type="submit" value="Cerca">
-			</form>
+<header>
+    <form action="#" method="get">
+        <label for="search" style="color: #fff;">Cerca:</label>
+        <input type="text" id="search" name="search">
+        <input type="submit" value="Cerca">
+    </form>
 </header>
 <div class="left">
-<img src="./wikiLogo.jpg" alt="Mia Immagine">
-        <nav id="menuservizio">
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="./Gruppi.html">Gruppi</a></li>
-        <li><a href="./Notizie.html">Notizie</a></li>
-        <li><a href="./PNG.html">VIP</a></li>
-    </ul>	
-</nav>
+    <img src="./wikiLogo.jpg" alt="Mia Immagine" style="max-width: 100%; height: auto;">
+    <nav id="menuservizio">
+        <ul>
+            <li><a href="#" style="color: #0072b5;">Home</a></li>
+            <li><a href="./Gruppi.html" style="color: #0072b5;">Gruppi</a></li>
+            <li><a href="./Notizie.html" style="color: #0072b5;">Notizie</a></li>
+            <li><a href="./PNG.html" style="color: #0072b5;">VIP</a></li>
+        </ul>
+    </nav>
 </div>
 <div class="center">
     <div class="section">
-        <div style="background-color: #ADD8E6; height: 5px; width: 100%;"></div>
-        <h3 style="margin-top: -20px;">NOTIZIA DEL GIORNO</h3>
+        <h3>NOTIZIA DEL GIORNO</h3>
         <p>
-		Roma, 22 ottobre 2023 - Nella notte scorsa, un'esplosione ha scosso la zona attorno il cimitero del Verano durante un'esercitazione condotta dai Reparti Operazioni Speciali (ROS) delle forze dell'ordine.
-		L'incidente è stato causato da una fuga di gas che ha portato alla distruzione di un capanno degli attrezzi situato in prossimità dell'area dell'esercitazione
-	       <a href="./22_ottobre_2023.html">Continua a leggere l'articolo</a>
-	</p>
-         <h3>LINK UTILI</h3>
-            <ul>
-        <li><a href="https://www.cimitericapitolini.it/public/files/cimiteri-di-roma/elenco-cimiteri/AMA_Mappa_Verano_A3_2015_V4_WEB.pdf">mappa del verano</a></li>
-        <li><a href="./ScandaloTorre.html">Scandalo a Torre  Angela</a>
-        <li><a href="https://biotechgenix.github.io/">BioTechGenix</a></li>
-    </ul>
+            Roma, 22 ottobre 2023 - Nella notte scorsa, un'esplosione ha scosso la zona attorno il cimitero del Verano durante un'esercitazione condotta dai Reparti Operazioni Speciali (ROS) delle forze dell'ordine.
+            L'incidente è stato causato da una fuga di gas che ha portato alla distruzione di un capanno degli attrezzi situato in prossimità dell'area dell'esercitazione.
+            <a href="./22_ottobre_2023.html" style="color: #0072b5; text-decoration: none;">Continua a leggere l'articolo</a>
+        </p>
+        <h3>LINK UTILI</h3>
+        <ul>
+            <li><a href="https://www.cimitericapitolini.it/public/files/cimiteri-di-roma/elenco-cimiteri/AMA_Mappa_Verano_A3_2015_V4_WEB.pdf" style="color: #0072b5;">Mappa del Verano</a></li>
+            <li><a href="./ScandaloTorre.html" style="color: #0072b5;">Scandalo a Torre Angela</a></li>
+            <li><a href="https://biotechgenix.github.io" style="color: #0072b5;">BioTechGenix</a></li>
+        </ul>
     </div>
 </div>
 </body>
+</html>
+
 </html>
