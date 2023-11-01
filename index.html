@@ -99,19 +99,19 @@ h3{
 const githubRepo = "WoDwikiperdia/WoDwikiperdia.github.io";
 
 // Ottieni l'elenco dei file dalla repository GitHub
-fetch(`https://api.github.com/repos/${githubRepo}/contents/`)
+fetch(https://api.github.com/repos/${githubRepo}/contents/)
     .then(response => {
         if (!response.ok) {
             throw new Error("Errore durante il recupero dei file dalla repository GitHub");
         }
         return response.json();
     })
-    .then(files => {
+    .then(data => { // Cambia il nome della variabile da "files" a "data"
         const filelistElement = document.getElementById("filelist");
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-        for (const file of files) {
+        for (const file of data) { // Usa "data" anziché "files"
             const fileDate = new Date(file.updated_at);
             if (fileDate > oneWeekAgo) {
                 const listItem = document.createElement("li");
