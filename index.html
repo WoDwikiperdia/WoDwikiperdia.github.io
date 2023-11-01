@@ -96,10 +96,10 @@ h3{
 
 <script type="text/javascript">
    // Imposta il nome della repository GitHub
-const githubRepo = 'WoDwikiperdia/WoDwikiperdia.github.io';
+const githubRepo = "WoDwikiperdia/WoDwikiperdia.github.io";
 
 // Ottieni l'elenco dei file dalla repository GitHub
-fetch('https://api.github.com/repos/${githubRepo}/contents/')
+fetch("https://api.github.com/repos/${githubRepo}/contents/")
     .then(response => {
         if (!response.ok) {
             throw new Error("Errore durante il recupero dei file dalla repository GitHub");
