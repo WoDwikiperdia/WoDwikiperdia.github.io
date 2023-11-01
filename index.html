@@ -31,7 +31,46 @@ h3{
    p{
        text-align: center;
    }
+p, h3, nav ul {
+  text-align: left;
+}
+	/* Margini e spaziatura */
+.left, .center {
+  padding: 20px;
+}
 
+/* Stile del form di ricerca */
+header form {
+  margin: 10px 0;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Link nel footer */
+.section ul li a {
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  padding: 5px 0;
+}
+
+/* Stile per immagini */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .left, .center {
+    width: 100%;
+    float: none;
+  }
+}
+
+	
 .section p {
   background-color: #ADD8E6;
 }
