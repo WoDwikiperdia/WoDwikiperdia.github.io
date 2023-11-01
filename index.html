@@ -9,18 +9,10 @@
   height: 100px;
   background-color: #f2f2f2;
   overflow: hidden;
-}
-
-.right {
-  float: right;
-  width: 20%;
-  height: 100px;
-  background-color: #f2f2f2;
-}
 
 .center {
   margin: auto;
-  width: 60%;
+  width: 80%;
   height: 100px;
   background-color: #f2f2f2;
 }
@@ -71,11 +63,6 @@ h3{
     </ul>	
 </nav>
 </div>
-
-<div class="right">
-    <p>AGGIORNAMENTI:</p>
-    <ul id="filelist"></ul>
-</div>
 <div class="center">
     <div class="section">
         <div style="background-color: #ADD8E6; height: 5px; width: 100%;"></div>
@@ -93,36 +80,5 @@ h3{
     </ul>
     </div>
 </div>
-
-<script type="text/javascript">
-   // Imposta il nome della repository GitHub
-const githubRepo = 'WoDwikiperdia/WoDwikiperdia.github.io';
-
-// Ottieni l'elenco dei file dalla repository GitHub
-fetch('https://api.github.com/repos/WoDwikiperdia/WoDwikiperdia.github.io')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Errore durante il recupero dei file dalla repository GitHub");
-        }
-        return response.json();
-    })
-    .then(data => { // Cambia il nome della variabile da "files" a "data"
-        const filelistElement = document.getElementById("filelist");
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-        for (const file of data) { // Usa "data" anziché "files"
-            const fileDate = new Date(file.updated_at);
-            if (fileDate > oneWeekAgo) {
-                const listItem = document.createElement("li");
-                const link = document.createElement("a");
-                link.href = file.html_url;
-                link.textContent = file.name;
-                listItem.appendChild(link);
-                filelistElement.appendChild(listItem);
-            }
-        }
-    });
-</script>
 </body>
 </html>
