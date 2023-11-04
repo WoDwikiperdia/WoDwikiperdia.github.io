@@ -1,5 +1,4 @@
-# WoDwikiperdia.github.io
-https://wodwikiperdia.github.io/#
+
 Questa è un'opera di finzione. Tutti i personaggi, le organizzazioni e gli eventi descritti in questo romanzo sono frutto dell'immaginazione dell'autore e utilizzati in modo fittizio. Ogni riferimento a fatti storici, personaggi o luoghi reali è puramente casuale. 
 Lo scopo di questa repository GitHub è raccogliere del materiale di gioco e di fiction in modo accessibile ai giocatori e ai semplici curiosi, mantenendo un'impostazione "in-game", i quali possono liberamente prenderne spunto, considerando che non sono riportate regole o estratti da nessun manuale esistente. Questo materiale è da considerarsi sotto la licenza CC BY-SA 3.0 DEED.
 Altri nomi, personaggi, luoghi e avvenimenti sono il frutto dell'immaginazione dell'autore, e qualunque somiglianza con fatti, luoghi o persone reali, viventi o defunte, è del tutto casuale.
