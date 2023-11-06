@@ -1,7 +1,6 @@
 
-Questa è un'opera di finzione. Tutti i personaggi, le organizzazioni e gli eventi descritti in questo romanzo sono frutto dell'immaginazione dell'autore e utilizzati in modo fittizio. Ogni riferimento a fatti storici, personaggi o luoghi reali è puramente casuale. 
+Questa è un'opera di finzione. Tutti i personaggi, le organizzazioni e gli eventi descritti in questa repository e in quelle ad essa collegate  sono frutto dell'immaginazione dell'autore e utilizzati in modo fittizio. Ogni riferimento a fatti storici, personaggi o luoghi reali è puramente casuale. 
 Lo scopo di questa repository GitHub è raccogliere del materiale di gioco e di fiction in modo accessibile ai giocatori e ai semplici curiosi, mantenendo un'impostazione "in-game", i quali possono liberamente prenderne spunto, considerando che non sono riportate regole o estratti da nessun manuale esistente. Questo materiale è da considerarsi sotto la licenza CC BY-SA 3.0 DEED.
-Altri nomi, personaggi, luoghi e avvenimenti sono il frutto dell'immaginazione dell'autore, e qualunque somiglianza con fatti, luoghi o persone reali, viventi o defunte, è del tutto casuale.
 I riferimenti a persone, cose, eventi, gruppi ecc. sono casuali, i fatti narrati sono fittizi e sono solo elaborazione della fiction della campagna di Vampiri V5, nomi e eventi ispirati alla realtà sono usati solo per dare il contesto di realismo coerente con la fiction e la sua ambientazione pseudo-reale.
 Qualora ci siano richieste o problemi, potete tranquillamente contattare l'autore, che provvederà a modificare i nomi di persone, cose e gruppi.
 Ne approfitto per citare il disclaimer presente nel manuale di Vampiri the Masquerade v5:
@@ -10,7 +9,7 @@ Quanto scritto nelle pagine HTML collegate a questa repository o facenti parte s
 I contatti per questa repository e per la repository BioTechGenix sono da effettuarsi tramite messaggio dell'account GitHub WoDwikiperdia, il quale è anche autore di quanto scritto in questa repository e nella repository sopra citata.
 Bologna, Italia, 04/11/2023
 -----
- This is a work of fiction. All characters, organizations and events described in this novel are the product of the author's imagination and used fictitiously. Any reference to historical facts, characters or places is purely coincidental. 
+ This is a work of fiction. All characters, organizations and events described in this repository are the product of the author's imagination and used fictitiously. Any reference to historical facts, characters or places is purely coincidental. 
 The purpose of this GitHub repository is to collect game and fiction material in an accessible way for players and curious people, maintaining an "in-game" setting, which they can freely draw inspiration from, considering that no rules or extracts from any existing manual are reported. This material is to be considered under the CC BY-SA 3.0 DEED license.
 Other names, characters, places and events are the fruit of the author's imagination, and any resemblance to facts, places or people, living or dead, is entirely coincidental.
 The references to people, things, events, groups etc. are random, the facts narrated are fictitious and are only elaboration of the fiction of the Vampires V5 campaign, names and events inspired by reality are used only to give the context of realism consistent with the fiction and its pseudo-real setting.
