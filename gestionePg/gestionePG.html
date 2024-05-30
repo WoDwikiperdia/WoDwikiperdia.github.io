@@ -1,141 +1,1450 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
- .header {
-  width: 100%;
-  height: 200px;
-  background-color: #880808;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-}
-  .footer {
-  width: 100%;
-  height: 15px;
-  background-color: #880808;
-}
-</style>
-<script>
-var isLogged = false;
-function showPGcreation() {
-  if (!isLogged) {
-    doLogin();
-  }
-  if (isLogged) {
- var choice = confirm("Vuoi creare un personaggio?");
-  if (choice == true) {
-    	// Mostra la schermata per la creazione del personaggio
-    	document.getElementById('createCharacter').style.display = 'block';
-	}
-  }
-}
+    <style>
+        .header {
+            width: 100%;
+            height: 200px;
+            background-color: #880808;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
 
-function showPersonaggi() {
-  if (!isLogged) {
-    doLogin();
-  }
-  if (isLogged) {
-		var choice = confirm("Vuoi vedere i tuoi personaggi?");
-		if (choice == true) {
-			// Prima, ottieni l'elenco dei file nel branch 'personaggi' utilizzando l'API di GitHub
-			fetch(`https://api.github.com/repos/WoDwikiperdia/characters/${username}/git/trees/personaggi?recursive=1`)
-			.then(response => response.json())
-			.then(data => {
-				// Filtra solo i file (ignora le directory)
-				const files = data.tree.filter(item => item.type === 'blob');
-				// Per ogni file, crea un link
-				files.forEach(file => {
-          			// Crea un nuovo elemento 'a'
-          			const link = document.createElement('a');
-         	 		// Imposta l'URL del link
-         			link.href = `https://github.com/${username}/repository/blob/personaggi/${file.path}`;
-         			// Imposta il testo del link
-         	 		link.textContent = file.path;
-          			// Aggiungi il link all'elemento 'viewCharacters'
-        			document.getElementById('viewCharacters').appendChild(link);
-				})
-    		});
-       		// Mostra l'elemento 'viewCharacters'
-       		document.getElementById('viewCharacters').style.display = 'block';
-		}
-	}
-}
+        .footer {
+            width: 100%;
+            height: 15px;
+            background-color: #880808;
+        }
 
-function doLogin() {
-  if (!isLogged) {
-		// Ottieni l'orario corrente nel formato hh:mm
-		var username = prompt("Please enter your username:");
-		var date = new Date();
-		var hours = date.getHours();
-		var minutes = date.getMinutes();
-		var currentTime = (hours < 10 ? "0" : "") + hours + (minutes < 10 ? "0" : "") + minutes;
-		var correctPassword = ""; // Inizializza correctPassword come stringa vuota
-		if (username == "Maxx"){correctPassword="Gaetano";}
-		else if (username == "Elettra"){correctPassword="Caterina";}
-		else if (username == "Emma"){correctPassword="Laura";}
-		else if (username == "Vitali"){correctPassword="Roberto";}
-		else if (username == "SuorCristina"){correctPassword="Eugenia";}
-		var composedPassword = correctPassword + currentTime;
-		var password = prompt("Please enter your password:");
-		if((username == "Maxx" && password == composedPassword) ||
-   		(username == "Elettra" && password == composedPassword) ||
-   		(username == "Emma" && password == composedPassword) ||
-   		(username == "Vitali" && password == composedPassword) ||
-   		(username == "SuorCristina" && password == composedPassword)){isLogged = true;}
+        .dot {
+            height: 25px;
+            width: 25px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            margin-right: 5px;
+        }
 
-	}
-	if (isLogged && document.getElementById('loginButton').textContent == 'LogIn PG'){
-			document.getElementById('loginButton').textContent = 'LogOff PG';
-	}
-	else if(isLogged && document.getElementById('loginButton').textContent != 'LogIn PG'){
-		isLogged = false;
-		document.getElementById('loginButton').textContent = 'LogIn PG';
-	}
-	else {
-			alert("Login fallito");
-			isLogged = false;
-			document.getElementById('loginButton').textContent = 'LogIn PG';
-		}
-	return isLogged;
-}
+            .dot.active {
+                background-color: #020202;
+            }
+    </style>
+    <script>
+        var userNAME = '';
+        var nome = '';
+        var clan = '';
+        var sire = '';
+        var predatore = '';
+        var generazione = 0;
+        var isPng = false;
+        var forza = 0;
+        var destrezza = 0;
+        var costituzione = 0;
+        var carisma = 0;
+        var persuasione = 0;
+        var autocontrollo = 0;
+        var intelligenza = 0;
+        var prontezza = 0;
+        var fermezza = 0;
+        var armidaFuoco = 0;
+        var atletica = 0;
+        var criminalita = 0;
+        var furtivita = 0;
+        var guidare = 0;
+        var manualita = 0;
+        var mischia = 0;
+        var rissa = 0;
+        var sopravvivenza = 0;
+        var affinitaAnimale = 0;
+        var autorita = 0;
+        var bassifondi = 0;
+        var convincere = 0;
+        var espressivita = 0;
+        var galateo = 0;
+        var intimidire = 0;
+        var intuito = 0;
+        var sotterfugio = 0;
+        var accademiche = 0;
+        var allerta = 0;
+        var finanza = 0;
+        var investigare = 0;
+        var medicina = 0;
+        var occulto = 0;
+        var politica = 0;
+        var scienze = 0;
+        var tecnologia = 0;
+        var personaggio = {
+            nome: nome,
+            sire: sire,
+            predatore: predatore,
+            clan:  clan,
+            generazione: generazione,
+            isPng: isPng,
+            forza: forza,
+            destrezza: destrezza,
+            costituzione: costituzione,
+            carisma: carisma,
+            persuasione: persuasione,
+            autocontrollo: autocontrollo,
+            intelligenza: intelligenza,
+            prontezza: prontezza,
+            fermezza: fermezza,
+            armidaFuoco: armidaFuoco,
+            atletica: atletica,
+            criminalita: criminalita,
+            furtivita: furtivita,
+            guidare: guidare,
+            manualita: manualita,
+            mischia: mischia,
+            rissa: rissa,
+            sopravvivenza: sopravvivenza,
+            affinitaAnimale: affinitaAnimale,
+            autorita: autorita,
+            bassifondi: bassifondi,
+            convincere: convincere,
+            espressivita: espressivita,
+            galateo: galateo,
+            intimidire: intimidire,
+            intuito: intuito,
+            sotterfugio: sotterfugio,
+            accademiche: accademiche,
+            allerta: allerta,
+            finanza: finanza,
+            investigare: investigare,
+            medicina: medicina,
+            occulto: occulto,
+            politica: politica,
+            scienze: scienze,
+            tecnologia: tecnologia
+        };
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // For 'forza'
+            document.querySelectorAll('#forza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
 
-</script>
+                    // Set 'forza' to the index + 1
+                    forza = index + 1;
+                    console.log('Forza:', forza); // Log 'forza' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#forza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // For 'destrezza'
+            document.querySelectorAll('#destrezza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'destrezza' to the index + 1
+                    destrezza = index + 1;
+                    console.log('Destrezza:', destrezza); // Log 'destrezza' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#destrezza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // For 'costituzione'
+            document.querySelectorAll('#costituzione .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    costituzione = index + 1;
+                    console.log('Costituzione:', costituzione); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#costituzione .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#carisma .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    carisma = index + 1;
+                    console.log('carisma:', carisma); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#carisma .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#persuasione .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    persuasione = index + 1;
+                    console.log('persuasione:', persuasione); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#persuasione .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#autocontrollo .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    autocontrollo = index + 1;
+                    console.log('autocontrollo:', persuasione); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#autocontrollo .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#intelligenza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    intelligenza = index + 1;
+                    console.log('intelligenza:', intelligenza); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#intelligenza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#prontezza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    prontezza = index + 1;
+                    console.log('prontezza:', prontezza); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#prontezza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#fermezza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'costituzione' to the index + 1
+                    fermezza = index + 1;
+                    console.log('fermezza:', fermezza); // Log 'costituzione' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#fermezza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#armidaFuoco .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    armidaFuoco = index + 1;
+                    console.log('armidaFuoco:', armidaFuoco); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#armidaFuoco .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#atletica .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    atletica = index + 1;
+                    console.log('atletica:', atletica); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#atletica .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#criminalita .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    criminalita = index + 1;
+                    console.log('criminalita:', criminalita); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#criminalita .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#furtivita .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    furtivita = index + 1;
+                    console.log('furtivita:', furtivita); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#furtivita .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#guidare .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    guidare = index + 1;
+                    console.log('guidare:', guidare); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#guidare .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#manualita .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    manualita = index + 1;
+                    console.log('manualita:', manualita); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#manualita .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#mischia .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    mischia = index + 1;
+                    console.log('mischia:', mischia); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#mischia .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#rissa .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    rissa = index + 1;
+                    console.log('rissa:', rissa); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#rissa .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#sopravvivenza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    sopravvivenza = index + 1;
+                    console.log('sopravvivenza:', sopravvivenza); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#sopravvivenza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#affinitaAnimale .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    affinitaAnimale = index + 1;
+                    console.log('affinitaAnimale:', affinitaAnimale); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#affinitaAnimale .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#autorita .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    autorita = index + 1;
+                    console.log('autorita:', autorita); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#autorita .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#bassifondi .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    bassifondi = index + 1;
+                    console.log('bassifondi:', bassifondi); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#bassifondi .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#convincere .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    convincere = index + 1;
+                    console.log('convincere:', convincere); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#convincere .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#espressivita .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    espressivita = index + 1;
+                    console.log('espressivita:', espressivita); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#espressivita .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#galateo .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    galateo = index + 1;
+                    console.log('galateo:', galateo); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#galateo .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#intimidire .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    intimidire = index + 1;
+                    console.log('intimidire:', intimidire); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#intimidire .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#intuito .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    intuito = index + 1;
+                    console.log('intuito:', intuito); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#intuito .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#sotterfugio .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    sotterfugio = index + 1;
+                    console.log('sotterfugio:', sotterfugio); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#sotterfugio .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#accademiche .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    accademiche = index + 1;
+                    console.log('accademiche:', accademiche); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#accademiche .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#allerta .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    allerta = index + 1;
+                    console.log('allerta:', allerta); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#allerta .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#finanza .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    finanza = index + 1;
+                    console.log('finanza:', finanza); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#finanza .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#investigare .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    investigare = index + 1;
+                    console.log('investigare:', investigare); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#investigare .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#medicina .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    medicina = index + 1;
+                    console.log('medicina:', medicina); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#medicina .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#occulto .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    occulto = index + 1;
+                    console.log('occulto:', occulto); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#occulto .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#politica .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    politica = index + 1;
+                    console.log('politica:', politica); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#politica .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#scienze .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    scienze = index + 1;
+                    console.log('scienze:', scienze); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#scienze .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('#tecnologia .dot').forEach(function (dot, index) {
+                dot.addEventListener('click', function () {
+                    // Change the color of the clicked dot
+                    this.classList.add('active');
+
+                    // Set 'armidaFuoco' to the index + 1
+                    tecnologia = index + 1;
+                    console.log('tecnologia:', tecnologia); // Log 'armidaFuoco' to the console
+
+                    // Change the color of all dots up to the clicked one
+                    document.querySelectorAll('#tecnologia .dot').forEach(function (dot, i) {
+                        if (i <= index) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+
+        var isLogged = false;
+        function showPGcreation() {
+            if (!isLogged) {
+                doLogin();
+            }
+            if (isLogged) {
+                var choice = confirm("Vuoi creare un personaggio?");
+                if (choice == true) {
+                    document.getElementById('createCharacter').style.display = 'block';
+                    document.getElementById('forza').style.display = 'flex';
+                }
+            }
+        }
+        function showPersonaggi() {
+            if (!isLogged) {
+                doLogin();
+            }
+            if (isLogged) {
+                var choice = confirm("Vuoi vedere i tuoi personaggi?");
+                if (choice == true) {
+                    // Prima, ottieni l'elenco dei file nel branch 'personaggi' utilizzando l'API di GitHub
+                    fetch(`https://api.github.com/repos/WoDwikiperdia/characters/${username}/git/trees/personaggi?recursive=1`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Filtra solo i file (ignora le directory)
+                            const files = data.tree.filter(item => item.type === 'blob');
+                            // Per ogni file, crea un link
+                            files.forEach(file => {
+                                // Crea un nuovo elemento 'a'
+                                const link = document.createElement('a');
+                                // Imposta l'URL del link
+                                link.href = `https://github.com/${username}/repository/blob/personaggi/${file.path}`;
+                                // Imposta il testo del link
+                                link.textContent = file.path;
+                                // Aggiungi il link all'elemento 'viewCharacters'
+                                document.getElementById('viewCharacters').appendChild(link);
+                            })
+                        });
+                    // Mostra l'elemento 'viewCharacters'
+                    document.getElementById('viewCharacters').style.display = 'block';
+                }
+            }
+        }
+        function doLogin() {
+            if (!isLogged) {
+                // Ottieni l'orario corrente nel formato hh:mm
+                var username = prompt("Please enter your username:");
+                userNAME = username;
+                var date = new Date();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var currentTime = (hours < 10 ? "0" : "") + hours + (minutes < 10 ? "0" : "") + minutes;
+                var correctPassword = ""; // Inizializza correctPassword come stringa vuota
+                if (username == "Maxx") { correctPassword = "Gaetano"; }
+                else if (username == "Elettra") { correctPassword = "Caterina"; }
+                else if (username == "Emma") { correctPassword = "Laura"; }
+                else if (username == "Vitali") { correctPassword = "Roberto"; }
+                else if (username == "SuorCristina") { correctPassword = "Eugenia"; }
+                var composedPassword = correctPassword + currentTime;
+                var password = prompt("Please enter your password:");
+                if ((username == "Maxx" && password == composedPassword) ||
+                    (username == "Elettra" && password == composedPassword) ||
+                    (username == "Emma" && password == composedPassword) ||
+                    (username == "Vitali" && password == composedPassword) ||
+                    (username == "SuorCristina" && password == composedPassword)) { isLogged = true; }
+
+            }
+            if (isLogged && document.getElementById('loginButton').textContent == 'LogIn PG') {
+                document.getElementById('loginButton').textContent = 'LogOff PG';
+            }
+            else if (isLogged && document.getElementById('loginButton').textContent != 'LogIn PG') {
+                isLogged = false;
+                document.getElementById('loginButton').textContent = 'LogIn PG';
+            }
+            else {
+                alert("Login fallito");
+                isLogged = false;
+                document.getElementById('loginButton').textContent = 'LogIn PG';
+            }
+            return isLogged;
+        }
+        function salvaPersonaggio() {
+            if (isLogged) {
+                console.log(document.getElementById('nome').value);
+                personaggio.nome = document.getElementById('nome').value;
+                personaggio.sire = document.getElementById('sire').value;
+                personaggio.generazione = document.getElementById('generazione').valueAsNumber;
+                personaggio.clan = document.getElementById('clan').value;
+                personaggio.isPng = document.getElementById('isPng').checked;;
+                personaggio.forza = forza;
+                personaggio.destrezza = destrezza;
+                personaggio.costituzione = costituzione;
+                personaggio.carisma = carisma;
+                personaggio.persuasione = persuasione;
+                personaggio.autocontrollo = autocontrollo;
+                personaggio.intelligenza = intelligenza;
+                personaggio.prontezza = prontezza;
+                personaggio.fermezza = fermezza;
+                personaggio.armidaFuoco = armidaFuoco;
+                personaggio.atletica = atletica;
+                personaggio.criminalita = criminalita;
+                personaggio.furtivita = furtivita;
+                personaggio.guidare = guidare;
+                personaggio.manualita = manualita;
+                personaggio.mischia = mischia;
+                personaggio.rissa = rissa;
+                personaggio.sopravvivenza = sopravvivenza;
+                personaggio.affinitaAnimale = affinitaAnimale;
+                personaggio.autorita = autorita;
+                personaggio.bassifondi = bassifondi;
+                personaggio.convincere = convincere;
+                personaggio.espressivita = espressivita;
+                personaggio.galateo = galateo;
+                personaggio.intimidire = intimidire;
+                personaggio.intuito = intuito;
+                personaggio.sotterfugio = sotterfugio;
+                personaggio.accademiche = accademiche;
+                personaggio.allerta = allerta;
+                personaggio.finanza = finanza;
+                personaggio.investigare = investigare;
+                personaggio.medicina = medicina;
+                personaggio.occulto = occulto;
+                personaggio.politica = politica;
+                personaggio.scienze = scienze;
+                personaggio.tecnologia = tecnologia;
+                console.log(personaggio);
+                try { var personaggioJson = JSON.stringify(personaggio); }
+                catch (error) {
+                    console.error('Errore nella generazione del JSON:', error);
+                }
+                save(personaggioJson);
+            }
+        }
+        function save(personaggioJson) {
+            var repo = "WoDwikiperdia.github.io";
+            var filename = `${document.getElementById('nome').value}.json`;
+            var content = personaggioJson; // il tuo JSON stringified
+            const token = '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';
+            const repoOwner = 'WoDwikiperdia';
+            const filePath = `gestionePg/characters/${userNAME}/${filename}`;
+            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repo}/${filePath}`;
+
+            // Ottieni il contenuto del file corrente
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            })
+                .then(response => {
+                    if (response.status === 404) {
+                        // Il file non esiste, crea un nuovo file
+                        return createOrUpdateFile(apiUrl, token, personaggio, null);
+                    } else if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Errore durante il recupero del file');
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        const sha = data.sha;
+                        createOrUpdateFile(apiUrl, token, personaggio, sha);
+                    }
+                })
+                .catch(error => {
+                    console.error('Errore:', error);
+                });
+        }
+
+        function createOrUpdateFile(apiUrl, token, personaggio, sha) {
+            const updatedContent = btoa(JSON.stringify(personaggio, null, 2));
+
+            const body = {
+                message: 'Aggiorna file personaggio',
+                content: updatedContent
+            };
+
+            if (sha) {
+                body.sha = sha;
+            }
+
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('File aggiornato con successo:', data);
+                })
+                .catch(error => {
+                    console.error('Errore durante l\'aggiornamento del file:', error);
+                });
+        }
+    </script>
 </head>
 <body>
-<div class="header">
-  <a href="https://wodwikiperdia.github.io/#"><img src="./camarilla.jpg" alt="camarilla" width="200" height="200"></a>
-  <h1 style="text-align: center; flex-grow: 1;">GESTIONE PERSONAGGI</h1>
-</div>
-<div style="display: flex;">
-  <button id="createCharacter" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPGcreation()">Crea Personaggi</button>
-  <button id="viewCharacters" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPersonaggi()">Mostra Personaggi</button>
-  <button id="loginButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="doLogin()">LogIn PG</button>
-</div>
-<!-- Aggiungi qui il tuo contenuto -->
+    <div class="header">
+        <a href="https://wodwikiperdia.github.io/#"><img src="./camarilla.jpg" alt="camarilla" width="200" height="200"></a>
+        <h1 style="text-align: center; flex-grow: 1;">GESTIONE PERSONAGGI</h1>
+    </div>
+    <div style="display: flex;">
+        <button id="createCharacterButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPGcreation()">Crea Personaggi</button>
+        <button id="viewCharactersButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPersonaggi()">Mostra Personaggi</button>
+        <button id="loginButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="doLogin()">LogIn PG</button>
+        <button id="salvaPersonaggioButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="salvaPersonaggio()">Salva </button>
+    </div>
+    <!-- Aggiungi qui il tuo contenuto -->
+    <!-- Schermata per la creazione del personaggio -->
+    <div id="createCharacter" style="display: none;">
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1;">
+                <form id="myForm">
+                    Nome: <input type="text" id="nome"><br>
+                    Sire: <input type="text" id="sire"><br>
+                    <h2 style="text-align: center;">FISICI</h2>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 10px;">Forza</p>
+                        <ul id="forza" style="display: flex; list-style-type: none; padding: 0;">
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 10px;">Destrezza</p>
+                        <ul id="destrezza" style="display: flex; list-style-type: none; padding: 0;">
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 10px;">Costituzione</p>
+                        <ul id="costituzione" style="display: flex; list-style-type: none; padding: 0;">
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                            <li class="dot"></li>
+                        </ul>
+                    </div>
+            </div>
+            <div style="flex: 1;">
+                Predatore: <input type="text" id="predatore"><br>
+                Clan: <input type="text" id="clan"><br>
+                <h2>SOCIALI</h2>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Carisma</p>
+                    <ul id="carisma" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Persuasione</p>
+                    <ul id="persuasione" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Autocontrollo</p>
+                    <ul id="autocontrollo" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                Generazione: <input type="number" id="generazione"><br>
+                isPng: <input type="checkbox" id="isPng"><br>
+                <h2>MENTALI</h2>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Intelligenza</p>
+                    <ul id="intelligenza" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Prontezza</p>
+                    <ul id="prontezza" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Fermezza</p>
+                    <ul id="fermezza" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex:1;">
+                <div style="display: flex;align-items: center;">
+                    <p style="margin-right: 10px;">Armi da Fuoco</p>
+                    <ul id="armidaFuoco" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
 
-<!-- Schermata per la creazione del personaggio -->
-<div id="createCharacter" style="display: none;">
-	<div style="display: flex; justify-content: space-between;">
-		<div style="flex: 1;">
-		  <h2>Header 1</h2>
-		  <!-- Add your content for the first column here -->
-		</div>
-		<div style="flex: 1;">
-		  <h2>Header 2</h2>
-		  <!-- Add your content for the second column here -->
-		</div>
-		<div style="flex: 1;">
-		  <h2>Header 3</h2>
-		  <!-- Add your content for the third column here -->
-		</div>
-	  </div>
-</div>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Atletica</p>
+                    <ul id="atletica" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
 
-<!-- Schermata con l'elenco dei personaggi -->
-<div id="viewCharacters" style="display: none;">
-  <!-- Aggiungi qui il tuo codice per visualizzare l'elenco dei personaggi -->
-</div>
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Criminalità</p>
+                    <ul id="criminalita" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Furtività</p>
+                    <ul id="furtivita" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Guidare</p>
+                    <ul id="guidare" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Manualità</p>
+                    <ul id="manualita" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Mischia</p>
+                    <ul id="mischia" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Rissa</p>
+                    <ul id="rissa" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Sopravvivenza</p>
+                    <ul id="sopravvivenza" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="flex:1;">
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Affinità Animale</p>
+                    <ul id="affinitaAnimale" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Autorità</p>
+                    <ul id="autorita" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Bassifondi</p>
+                    <ul id="bassifondi" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Convincere</p>
+                    <ul id="convincere" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Espressività</p>
+                    <ul id="espressivita" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Galateo</p>
+                    <ul id="galateo" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Intimidire</p>
+                    <ul id="intimidire" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Intuito</p>
+                    <ul id="intuito" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Sotterfugio</p>
+                    <ul id="sotterfugio" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="flex:1;">
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Accademiche</p>
+                    <ul id="accademiche" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Allerta</p>
+                    <ul id="allerta" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Finanza</p>
+                    <ul id="finanza" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Investigare</p>
+                    <ul id="investigare" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Medicina</p>
+                    <ul id="medicina" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Occulto</p>
+                    <ul id="occulto" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Politica</p>
+                    <ul id="politica" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Scienze</p>
+                    <ul id="scienze" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <p style="margin-right: 10px;">Tecnologia</p>
+                    <ul id="tecnologia" style="display: flex; list-style-type: none; padding: 0;">
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                        <li class="dot"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schermata con l'elenco dei personaggi -->
+        <div id="viewCharacters" style="display: none;">
+            <!-- Aggiungi qui il tuo codice per visualizzare l'elenco dei personaggi -->
+        </div>
 </body>
 </html>
