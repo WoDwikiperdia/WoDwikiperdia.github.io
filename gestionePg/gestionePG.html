@@ -949,11 +949,11 @@
             var repo = "WoDwikiperdia.github.io";
             var filename = `${document.getElementById('nome').value}.json`;
             var content = personaggioJson; // il tuo JSON stringified
-            const token = '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';
+            const token = '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';
             const repoOwner = 'WoDwikiperdia';
-            const filePath = `gestionePg/characters/${userNAME}/${filename}`;
+            const filePath = `contents/gestionePg/characters/${userNAME}/${filename}`;
             const apiUrl = `https://api.github.com/repos/${repoOwner}/${repo}/${filePath}`;
-
+           // const apiUrl = 'https://api.github.com/repos/WoDwikiperdia/WoDwikiperdia.github.io/contents/gestionePg/characters/Elettra/prova.json';
             // Ottieni il contenuto del file corrente
             fetch(apiUrl, {
                 method: 'GET',
