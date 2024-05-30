@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+ .header {
+  width: 100%;
+  height: 200px;
+  background-color: #880808;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+  .footer {
+  width: 100%;
+  height: 15px;
+  background-color: #880808;
+}
+</style>
+<script>
+var isLogged = false;
+function showPGcreation() {
+  if (!isLogged) {
+    doLogin();
+  }
+  if (isLogged) {
+ var choice = confirm("Vuoi creare un personaggio?");
+  if (choice == true) {
+    	// Mostra la schermata per la creazione del personaggio
+    	document.getElementById('createCharacter').style.display = 'block';
+	}
+  }
+}
+
+function showPersonaggi() {
+  if (!isLogged) {
+    doLogin();
+  }
+  if (isLogged) {
+		var choice = confirm("Vuoi vedere i tuoi personaggi?");
+		if (choice == true) {
+			// Prima, ottieni l'elenco dei file nel branch 'personaggi' utilizzando l'API di GitHub
+			fetch(`https://api.github.com/repos/WoDwikiperdia/characters/${username}/git/trees/personaggi?recursive=1`)
+			.then(response => response.json())
+			.then(data => {
+				// Filtra solo i file (ignora le directory)
+				const files = data.tree.filter(item => item.type === 'blob');
+				// Per ogni file, crea un link
+				files.forEach(file => {
+          			// Crea un nuovo elemento 'a'
+          			const link = document.createElement('a');
+         	 		// Imposta l'URL del link
+         			link.href = `https://github.com/${username}/repository/blob/personaggi/${file.path}`;
+         			// Imposta il testo del link
+         	 		link.textContent = file.path;
+          			// Aggiungi il link all'elemento 'viewCharacters'
+        			document.getElementById('viewCharacters').appendChild(link);
+				})
+    		});
+       		// Mostra l'elemento 'viewCharacters'
+       		document.getElementById('viewCharacters').style.display = 'block';
+		}
+	}
+}
+
+function doLogin() {
+  if (!isLogged) {
+		// Ottieni l'orario corrente nel formato hh:mm
+		var username = prompt("Please enter your username:");
+		var date = new Date();
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var currentTime = (hours < 10 ? "0" : "") + hours + (minutes < 10 ? "0" : "") + minutes;
+		var correctPassword = ""; // Inizializza correctPassword come stringa vuota
+		if (username == "Maxx"){correctPassword="Gaetano";}
+		else if (username == "Elettra"){correctPassword="Caterina";}
+		else if (username == "Emma"){correctPassword="Laura";}
+		else if (username == "Vitali"){correctPassword="Roberto";}
+		else if (username == "SuorCristina"){correctPassword="Eugenia";}
+		var composedPassword = correctPassword + currentTime;
+		var password = prompt("Please enter your password:");
+		if((username == "Maxx" && password == composedPassword) ||
+   		(username == "Elettra" && password == composedPassword) ||
+   		(username == "Emma" && password == composedPassword) ||
+   		(username == "Vitali" && password == composedPassword) ||
+   		(username == "SuorCristina" && password == composedPassword)){isLogged = true;}
+
+	}
+	if (isLogged && document.getElementById('loginButton').textContent == 'LogIn PG'){
+			document.getElementById('loginButton').textContent = 'LogOff PG';
+	}
+	else if(isLogged && document.getElementById('loginButton').textContent != 'LogIn PG'){
+		isLogged = false;
+		document.getElementById('loginButton').textContent = 'LogIn PG';
+	}
+	else {
+			alert("Login fallito");
+			isLogged = false;
+			document.getElementById('loginButton').textContent = 'LogIn PG';
+		}
+	return isLogged;
+}
+
+</script>
+</head>
+<body>
+<div class="header">
+  <a href="https://wodwikiperdia.github.io/#"><img src="./camarilla.jpg" alt="camarilla" width="200" height="200"></a>
+  <h1 style="text-align: center; flex-grow: 1;">GESTIONE PERSONAGGI</h1>
+</div>
+<div style="display: flex;">
+  <button id="createCharacter" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPGcreation()">Crea Personaggi</button>
+  <button id="viewCharacters" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPersonaggi()">Mostra Personaggi</button>
+  <button id="loginButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="doLogin()">LogIn PG</button>
+</div>
+<!-- Aggiungi qui il tuo contenuto -->
+
+<!-- Schermata per la creazione del personaggio -->
+<div id="createCharacter" style="display: none;">
+	<div style="display: flex; justify-content: space-between;">
+		<div style="flex: 1;">
+		  <h2>Header 1</h2>
+		  <!-- Add your content for the first column here -->
+		</div>
+		<div style="flex: 1;">
+		  <h2>Header 2</h2>
+		  <!-- Add your content for the second column here -->
+		</div>
+		<div style="flex: 1;">
+		  <h2>Header 3</h2>
+		  <!-- Add your content for the third column here -->
+		</div>
+	  </div>
+</div>
+
+<!-- Schermata con l'elenco dei personaggi -->
+<div id="viewCharacters" style="display: none;">
+  <!-- Aggiungi qui il tuo codice per visualizzare l'elenco dei personaggi -->
+</div>
+</body>
+</html>
