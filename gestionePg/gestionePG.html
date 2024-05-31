@@ -893,6 +893,11 @@
             }
             return isLogged;
         }
+        function nextPage(){
+            window.location.href ="https://wodwikiperdia.github.io/gestionePg/azioniPG.html";
+        }
+
+        
         function salvaPersonaggio() {
             if (isLogged) {
                 console.log(document.getElementById('nome').value);
@@ -1024,6 +1029,7 @@
         <button id="viewCharactersButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="showPersonaggi()">Mostra Personaggi</button>
         <button id="loginButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="doLogin()">LogIn PG</button>
         <button id="salvaPersonaggioButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="salvaPersonaggio()">Salva </button>
+        <button id="salvaPersonaggioButton" style="background-color: #880808; color: #ffffff; border: 2px solid #0f0f0f;" onclick="nextPage()">Salva </button>
     </div>
     <!-- Aggiungi qui il tuo contenuto -->
     <!-- Schermata per la creazione del personaggio -->
