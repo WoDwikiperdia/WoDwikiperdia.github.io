@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Gestione Azioni WoD</title>
+<style>
+    form {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+    input[type="submit"] {
+      background-color: #880808;
+      color: white;
+       border: none;
+       padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="button"] {
+      background-color: #880808;
+      color: white;
+       border: none;
+       padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Stile per le statistiche */
+    #statistichePG {
+      margin-top: 20px;
+       background-color: #f9f9f9;
+       padding: 20px;
+        border-radius: 8px;
+    }
+      .header {
+            width: 100%;
+            height: 200px;
+            background-color: #880808;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .footer {
+            width: 100%;
+            height: 15px;
+            background-color: #880808;
+        }
+  /* Stile per il riquadro informativo */
+    .tooltip {
+      display: none;
+      position: absolute;
+      border: 1px solid #ccc;
+      background-color: #f7f7f7;
+      border-radius: 5px;
+      padding: 10px;
+      z-index: 1000;
+     }
+</style>
+</head>
+<body>
+    <div class="header">
+        <a href="https://wodwikiperdia.github.io/#"><img src="./camarilla.jpg" alt="camarilla" width="100" height="100"></a>
+        <h1 style="text-align: center; flex-grow: 1;">Gestione Azioni Infrasessione WoD</h1>
+    </div>
+
+<!-- Form per inserire l'azione desiderata -->
+<form id="azioneForm">
+  <label for="tipoRisorsa">Seleziona il tipo di risorsa da usare:</label>
+  <select name="tipoRisorsa" id="tipoRisorsa">
+    <option value="png">PNG</option>
+    <option value="societa">SOCIETA'</option>
+    <option value="gruppi">GRUPPI</option>
+  </select>
+  <label for="risorsaScelta">Seleziona la risorsa:</label>
+  <select name="risorsaScelta" id="risorsaScelta">
+    <!-- Le opzioni verranno aggiornate dinamicamente tramite JavaScript -->
+  </select>
+  <label for="statisticaScelta">Seleziona il tipo statistica da usare:</label>
+  <select name="statisticaScelta" id="statisticaScelta">
+    <option value="influenzaMortali">Influenza mortali</option>
+    <option value="influenzaTenebra">Influenza mondo di tenebra</option>
+    <option value="soldi">Risorse</option>
+    <option value="fama">Fama</option>
+</select>
+  <br>
+  <label for="descrizioneAzione">Descrivi l'azione che vuoi compiere:</label>
+  <input type="text" id="descrizioneAzione" name="descrizioneAzione">
+  <br>
+  <input type="submit" value="Invia Azione">
+  <input type = "button" value =  "Indietro" onclick="goBack()">
+</form>
+
+<!-- Spazio per visualizzare le risorse del personaggio -->
+<div id="risorsePersonaggio">
+  <!-- I dati delle risorse verranno inseriti qui tramite JavaScript -->
+</div>
+<div id="statistichePG">
+  <!-- I dati delle statistiche verranno inseriti qui tramite JavaScript -->
+</div>
+
+<script>
+// Dati delle risorse
+const risorse = {
+  png: [
+    { value: 'paolo_gresti', text: 'Paolo Gresti (ghoul)', tipo: 'umano', punteggio: 10 },
+    { value: 'ernest_ulbirg', text: 'Ernest Ulbirg (umano)', tipo: 'mondo di tenebra', punteggio: 10 }
+  ],
+  societa: [
+    {value:'Galeberra',text: 'Galeberra', tipo :'umano', punteggio: 5}
+  ],
+  gruppi: [
+   
+  ]
+};
+
+let statistichePersonaggio = {
+  influenzaMortali: 0,
+  soldi: 0,
+  fama: 0,
+  influenzaTenebra: 0
+};
+
+function goBack() {
+  window.location.href = "https://wodwikiperdia.github.io/gestionePg/gestionePG.html";
+}
+
+// Funzione per aggiornare le opzioni del selettore delle risorse
+function aggiornaRisorse() {
+  const tipoRisorsa = document.getElementById('tipoRisorsa').value;
+  const risorsaScelta = document.getElementById('risorsaScelta');
+  
+  // Svuota le opzioni correnti
+  risorsaScelta.innerHTML = '';
+  
+  // Aggiungi le nuove opzioni basate sul tipo di risorsa selezionato
+  risorse[tipoRisorsa].forEach(risorsa => {
+    const option = document.createElement('option');
+    option.value = risorsa.value;
+    option.textContent = risorsa.text;
+    risorsaScelta.appendChild(option);
+  });
+}
+
+// Aggiorna le opzioni inizialmente
+document.addEventListener('DOMContentLoaded', aggiornaRisorse);
+
+// Aggiungi l'evento change al selettore del tipo di risorsa
+document.getElementById('tipoRisorsa').addEventListener('change', aggiornaRisorse);
+
+// Funzione per gestire l'invio del form
+document.getElementById('azioneForm').onsubmit = function(event) {
+  event.preventDefault();
+  
+  // Ottieni i valori dal form
+  const tipoRisorsa = document.getElementById('tipoRisorsa').value;
+  const risorsaScelta = document.getElementById('risorsaScelta').value;
+  const descrizioneAzione = document.getElementById('descrizioneAzione').value;
+  const statistica = document.getElementById('statisticaScelta').value;
+  
+  // Ottieni il valore della statistica selezionata dal personaggio
+  const poolDiDadi = statistichePersonaggio[statistica];
+  const risorsaText = risorse[tipoRisorsa].find(risorsa => risorsa.value === risorsaScelta).text;
+
+  // Crea l'oggetto JSON con i dati dell'azione
+  const azioneData = {
+    "user": "NomeUtente", // Sostituire con il nome utente effettivo
+    "risorsaUsata": risorsaText,
+    "statistica": statistica,
+    "azione": descrizioneAzione,
+    "poolDiDadi":  poolDiDadi
+  };
+  
+  // Invia l'oggetto JSON al server o gestiscilo come necessario
+  console.log(azioneData);
+};
+
+// Funzione per visualizzare le risorse del personaggio
+function mostraRisorsePersonaggio() {
+    // Stringa per contenere l'HTML delle risorse del personaggio
+    let risorseHTML = '<h2>Risorse del Personaggio</h2>';
+    
+    // Itera attraverso ogni tipo di risorsa
+    Object.keys(risorse).forEach(tipo => {
+        // Aggiungi il titolo del tipo di risorsa
+        risorseHTML += `<p>${tipo.toUpperCase()}</p><ul>`;
+        
+        // Itera attraverso ogni risorsa di questo tipo
+        risorse[tipo].forEach(risorsa => {
+            const { text, punteggio } = risorsa;
+            risorseHTML += `<li class="risorsa" data-risorsa="${risorsa.value}">${text} (Punteggio: ${punteggio})</li>`;
+        });
+        
+        risorseHTML += '</ul>'; // Chiudi la lista delle risorse per questo tipo
+    });
+
+    // Inserisci l'HTML delle risorse nel div 'risorsePersonaggio'
+    document.getElementById('risorsePersonaggio').innerHTML = risorseHTML;
+
+    // Aggiungi gli eventi per mostrare/nascondere il tooltip
+    document.querySelectorAll('.risorsa').forEach(elem => {
+        elem.addEventListener('mouseover', mostraTooltip);
+        elem.addEventListener('mouseout', nascondiTooltip);
+    });
+}
+
+// Funzione per mostrare il riquadro informativo
+function mostraTooltip(event) {
+  const tooltip = document.getElementById('tooltip');
+  tooltip.style.display = 'block';
+  tooltip.style.left = event.pageX + 'px';
+  tooltip.style.top = event.pageY + 'px';
+  
+  const risorsaId = event.target.getAttribute('data-risorsa');
+  const risorsa = Object.values(risorse).flat().find(r => r.value === risorsaId);
+
+  if (risorsa) {
+    const { tipo, punteggio } = risorsa;
+  
+    let influenzaMortali = 0;
+    let influenzaTenebra = 0;
+    let soldi = 0;
+    let fama = 0;
+  
+    if (tipo === 'umano') {
+      influenzaMortali = punteggio / 2;
+      influenzaTenebra = punteggio / 5;
+      soldi = punteggio / 5;
+      fama = punteggio / 2;
+    } else if (tipo === 'mondo di tenebra') {
+      influenzaMortali = punteggio / 5;
+      influenzaTenebra = punteggio / 2;
+      soldi = punteggio / 2;
+      fama = punteggio / 5;
+    }
+    
+    // Aggiorna il contenuto del tooltip
+    tooltip.innerHTML = `
+      <strong>Influenza Umani:</strong> ${influenzaMortali}<br>
+      <strong>Risorse:</strong> ${soldi}<br>
+      <strong>Fama:</strong> ${fama}<br>
+      <strong>Influenza Mondo di Tenebra:</strong> ${influenzaTenebra}
+    `;
+  }
+}
+
+// Funzione per nascondere il riquadro informativo
+function nascondiTooltip() {
+  const tooltip = document.getElementById('tooltip');
+  tooltip.style.display = 'none';
+}
+
+function calcolaEVisualizzaStatistiche() {
+  // Inizializza le variabili per le statistiche
+  let influenzaMortali = 0;
+  let soldi = 0;
+  let fama = 0;
+  let influenzaTenebra = 0;
+
+  // Itera attraverso tutte le risorse e aggiorna le statistiche
+  Object.values(risorse).flat().forEach(risorsa => {
+    const { tipo, punteggio } = risorsa;
+
+    if (tipo === 'umano') {
+      influenzaMortali += punteggio / 2;
+      influenzaTenebra += punteggio / 5;
+      soldi += punteggio / 5;
+      fama += punteggio / 2;
+    } else if (tipo === 'mondo di tenebra') {
+      influenzaMortali += punteggio / 5;
+      influenzaTenebra += punteggio / 2;
+      soldi += punteggio / 2;
+      fama += punteggio / 5;
+    }
+  });
+
+  // Aggiungi eventuali modificatori degli eventi in gioco alle statistiche
+  // Qui puoi aggiungere i modificatori specifici degli eventi in gioco
+
+  // Aggiorna le statistiche nel documento HTML
+  const statistichePGHTML = `
+    <h2>Statistiche del Personaggio</h2>
+    <p>Influenza Mortali: ${Math.floor(influenzaMortali)}</p>   
+    <p>Risorse: ${Math.floor(soldi)}</p>
+    <p>Fama: ${Math.floor(fama)}</p>
+    <p>Influenza Mondo di Tenebra: ${Math.floor(influenzaTenebra)}</p>
+  `;
+
+  document.getElementById('statistichePG').innerHTML = statistichePGHTML;
+
+  // Aggiorna le statistiche del personaggio nell'oggetto
+ statistichePersonaggio.influenzaMortali = Math.floor(influenzaMortali);
+  statistichePersonaggio.soldi = Math.floor(soldi);
+  statistichePersonaggio.fama = Math.floor(fama);
+  statistichePersonaggio.influenzaTenebra = Math.floor(influenzaTenebra);
+}
+
+// Aggiungi il div tooltip al tuo HTML
+const tooltipDiv = document.createElement('div');
+tooltipDiv.id = 'tooltip';
+tooltipDiv.className = 'tooltip';
+document.body.appendChild(tooltipDiv);
+
+// Chiamata iniziale per mostrare le risorse
+mostraRisorsePersonaggio();
+calcolaEVisualizzaStatistiche();
+</script>
+
+</body>
+</html>
