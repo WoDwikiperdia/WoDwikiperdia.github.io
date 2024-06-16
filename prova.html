@@ -4,7 +4,7 @@
 <head>
 	<style>
     body {
-        font-family: 'Arial', sans-serif;
+        font-family: ' 'Linux Libertine', sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f6f6f6;
@@ -17,13 +17,15 @@
         box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
     }
     header {
-        background-color: #f8f9fa;
-        padding: 20px;
-        width: auto;
-        height: 50px;
-        text-align: center;
-        border-bottom: 1px solid #a2a9b1;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header form {
+    margin-top: 0;
+}
+
     header img {
         width: 40px;
         height: auto;
@@ -79,14 +81,14 @@
         <li><a href="https://www.google.com/maps/d/edit?mid=1LJ9jY2cyMVz_hQ_pE3J89OSoaohcGJM&usp=sharing"style="color: #0072b5;">MAPPA</a></li>
     </ul>
 </div>
-    <header>
-        <h1>WoDPEDIA</h1>
-        <form action="#" method="get">
-            <label for="search">Cerca:</label>
-            <input type="text" id="search" name="search">
-            <input type="submit" value="Cerca">
-        </form>
-    </header>
+    <<header>
+    <h1>WoDPEDIA</h1>
+    <form action="#" method="get">
+        <label for="search" class="visually-hidden">Cerca:</label>
+        <input type="text" id="search" name="search">
+        <input type="submit" value="Cerca">
+    </form>
+</header>
 <div class="main-content">
     <h1>Gruppi</h1>
     <ul>
