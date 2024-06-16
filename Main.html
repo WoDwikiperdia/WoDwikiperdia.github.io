@@ -82,6 +82,7 @@ input[type="submit"]:hover {
                 isLogged = false;
                 document.getElementById('loginButton').textContent = 'LogIn PG';
             }
+            showHomePage();
             return isLogged;
         }
  function showHomePage() {
@@ -105,7 +106,7 @@ input[type="submit"]:hover {
 <title>Homepage Intranet</title>
 </head>
 <body>
-    <h1>Benvenuto nella nostra Intranet!</h1>
+    <h1>Benvenuto in Pecata Iustiniani!</h1>
     <form action="/login" method="post">
         <label for="username">Nome utente:</label><br>
         <input type="text" id="username" name="username"><br>
