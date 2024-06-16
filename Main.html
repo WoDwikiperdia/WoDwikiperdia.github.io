@@ -86,20 +86,20 @@ input[type="submit"]:hover {
         }
  function showHomePage() {
   var xhr = new XMLHttpRequest();
-  // Configura la richiesta GET per il file 'home.html'
-  xhr.open('GET', 'home.html', true);
-        xhr.onload = function() {
-            if (this.status == 200) {
-                // Se la richiesta ha successo, mostra il contenuto nel tuo elemento HTML
-                document.getElementById('content').innerHTML = this.responseText;
-            } else {
-                // Gestisci gli errori qui
-                console.error('Errore nel caricamento del file');
-            }
-        };
+  // Configura la richiesta GET per il file HTML specifico
+  xhr.open('GET', 'https://wodwikiperdia.github.io/home', true);
+  xhr.onload = function() {
+    if (this.status == 200) {
+      // Se la richiesta ha successo, mostra il contenuto nel tuo elemento HTML
+      document.getElementById('content').innerHTML = this.responseText;
+    } else {
+      // Gestisci gli errori qui
+      console.error('Errore nel caricamento del file');
+    }
+  };
 
-        // Invia la richiesta
-        xhr.send();
+  // Invia la richiesta
+  xhr.send();
     }
     </script>
 <title>Homepage Intranet</title>
