@@ -16,15 +16,12 @@
         padding: 20px;
         box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
     }
-   header {
-        background-color: #f8f9fa;
-        padding: 20px;
-        width: auto;
-        height: 50px;
+    header {
+        background-color: #f2f2f2;
+        padding: 10px;
         text-align: center;
-        border-bottom: 1px solid #a2a9b1;
+	font-family: 'Linux Libertine', serif;
     }
-
 header form {
     margin-top: 0;
 }
@@ -84,10 +81,13 @@ header form {
         <li><a href="https://www.google.com/maps/d/edit?mid=1LJ9jY2cyMVz_hQ_pE3J89OSoaohcGJM&usp=sharing"style="color: #0072b5;">MAPPA</a></li>
     </ul>
 </div>
-    <<header>
-    <h1>WoDPEDIA</h1>
-    <form action="#" method="get">
-        <label for="search">Cerca:</label>
+   <header style="display: flex; justify-content: space-between; align-items: center;">
+    <a href="https://wodwikiperdia.github.io/home.html">
+        <img src="./wikiLogo.jpg" alt="ANSA" width="200" height="200">
+    </a>
+	<a>WoDPEDIA</a>
+    <form action="#" method="get" style="text-align: center;">
+        <label for="search" style="color: #fff; margin-right: 10px;">Cerca:</label>
         <input type="text" id="search" name="search">
         <input type="submit" value="Cerca">
     </form>
