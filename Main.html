@@ -67,7 +67,7 @@ input[type="submit"]:hover {
                     (username == "Elettra" && password == composedPassword) ||
                     (username == "Emma" && password == composedPassword) ||
                     (username == "Vitali" && password == composedPassword) ||
-                    (username == "SuorCristina" && password == composedPassword)) { isLogged = true; }
+                    (username == "SuorCristina" && password == composedPassword)) { isLogged = true;showHomePage(isLogged); }
 
             }
             if (isLogged && document.getElementById('loginButton').textContent == 'LogIn PG') {
@@ -82,11 +82,11 @@ input[type="submit"]:hover {
                 isLogged = false;
                 document.getElementById('loginButton').textContent = 'LogIn PG';
             }
-            showHomePage();
             return isLogged;
         }
  function showHomePage() {
-  var xhr = new XMLHttpRequest();
+   if(isLogged){
+      var xhr = new XMLHttpRequest();
   // Configura la richiesta GET per il file HTML specifico
   xhr.open('GET', 'https://wodwikiperdia.github.io/home', true);
   xhr.onload = function() {
@@ -101,6 +101,8 @@ input[type="submit"]:hover {
 
   // Invia la richiesta
   xhr.send();
+     }
+ 
     }
     </script>
 <title>Homepage Intranet</title>
