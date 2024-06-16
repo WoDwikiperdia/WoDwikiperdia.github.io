@@ -70,19 +70,6 @@ input[type="submit"]:hover {
                     (username == "SuorCristina" && password == composedPassword)) { isLogged = true;showHomePage(isLogged); }
 
             }
-            if (isLogged && document.getElementById('loginButton').textContent == 'LogIn PG') {
-                document.getElementById('loginButton').textContent = 'LogOff PG';
-            }
-            else if (isLogged && document.getElementById('loginButton').textContent != 'LogIn PG') {
-                isLogged = false;
-                document.getElementById('loginButton').textContent = 'LogIn PG';
-            }
-            else {
-                alert("Login fallito");
-                isLogged = false;
-                document.getElementById('loginButton').textContent = 'LogIn PG';
-            }
-            return isLogged;
         }
  function showHomePage(isLogged) {
    if(isLogged){
