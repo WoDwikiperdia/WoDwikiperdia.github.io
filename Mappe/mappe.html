@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2b9;
+        margin: 0;
+        width: 100%;
+        min-width: 100vw;
+        padding: 0;
+    }
+
+    header, footer {
+        background-color:#880808;
+        color: #ffffff; /* Modificato da rgb(7, 7, 7) a #ffffff per una migliore leggibilità */
+        padding: 10px;
+        text-align: center;
+        font-family: Arial, sans-serif; 
+    }
+
+    footer {
+        height: 20px;
+    }
+
+    .image-container {
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Larghezza al 100% */
+        height: 650px; /* Imposta l'altezza come desideri */
+    }
+
+    .button-section {
+        text-align: center;
+    }
+
+    .image-slide {
+        min-width: 100%;
+        transition: 0.5s;
+        position: relative;
+    }
+
+    .image-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit:contain; 
+    }
+
+    .center {
+        margin: auto;
+        width: 80%;
+        background-color: #f2f2f2;
+        padding: 20px;
+        z-index: 10;
+    }
+
+    h3 {
+        background-color:#880808;
+        color: #ffffff; /* Modificato da rgb(7, 7, 7) a #ffffff per una migliore leggibilità */
+        padding: 10px;
+        text-align: center;
+    }
+
+    p {
+        text-align: left;
+    }
+
+    .section {
+        background-color: #f2f2f2;
+        padding: 10px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul li {
+        text-align: center;
+        padding: 5px;
+    }
+
+    ul li a {
+        text-decoration: none;
+        color: #aaacad;
+    }
+
+    ul li a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+<header>
+     <h1>Welcome in the Mas☥0uerade Infranet Map</h1>
+</header>
+<div class="center">
+    <div class="section">
+        <h3>MAPPE</h3>
+        <li><a href="./Mappe/RomeMap.html" style="color: #0072b5;">Mappa di roma</a></li>
+        <li><a href="https://www.cimitericapitolini.it/public/files/cimiteri-di-roma/elenco-cimiteri/Verano_2012.pdf" style="color: #0072b5;">Mappa Verano</a></li>
+</div>
+<div class="button-section">
+    <button onclick="window.location.href='./Wikipedia/wikipedia.html'">
+        <img src="./wikiLogo.jpg" alt="Logo Wikipedia" style="width: 20px; height: 20px;">
+        Wikipedia
+    </button>        
+    <button onclick="window.location.href='./Mappe/Mappe.html'">
+        <img src="./mappe.png" alt="Logo mappe" style="width: 20px; height: 20px;">
+        Mappe
+    </button>  
+    <button onclick="window.location.href='./Notizie/Notizie.html'">
+        <img src="./news.jpg" alt="Logo mappe" style="width: 20px; height: 20px;">
+        News
+    </button>     
+    <button onclick="window.location.href='./link_utili.html';">
+        <img src="./links.jpg" alt="Logo link utili" style="width: 20px; height: 20px;">
+        Link utili
+    </button>  
+    <button onclick="window.location.href='https://wodwikiperdia.github.io/home.html'">
+        <img src="./home.jpg" alt="home logo" style="width: 20px; height: 20px;">
+        home
+    </button>     
+</div>
+</body>
+</html>
