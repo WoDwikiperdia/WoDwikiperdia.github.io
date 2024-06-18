@@ -1,49 +1,76 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
+        background-color: #f2f2f2b9;
         margin: 0;
+        width: 100%;
+        min-width: 100vw;
+        padding: 0;
     }
 
-    header {
-        background-color: #aaacad;
+    header, footer {
+        background-color:#880808;
+        color: #ffffff; /* Modificato da rgb(7, 7, 7) a #ffffff per una migliore leggibilità */
         padding: 10px;
         text-align: center;
+        font-family: Arial, sans-serif; 
     }
 
-    label {
-        color: #f2f2f2;
+    footer {
+        height: 20px;
     }
 
-    form {
-        display: inline-block;
-    }
-
-    input[type="text"] {
-        width: 200px;
-        padding: 5px;
-    }
-
-    input[type="submit"] {
-        background-color: #f2f2f2;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-    }
-
-    .left {
-        float: left;
-        width: 5%;
-        background-color: ##bdbdbd;
+    .image-container {
+        display: flex;
         overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Larghezza al 100% */
+        height: 100px; /* Imposta l'altezza come desideri */
+    }
+
+    .button-section {
         text-align: center;
+    }
+
+    .image-slide {
+        min-width: 100%;
+        transition: 0.5s;
+        position: relative;
+    }
+
+    .image-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+    }
+
+    .navigators{
+        position: relative; /* Aggiunto */
+        margin: auto;
+        width: 80%;
+        background-color: #f2f2f2;
         padding: 20px;
-        z-index: 1;
-        position: Absolute;
+        z-index: 10;
+    }
+
+    .prev, .next {
+        position: relative; /* Modificato da inherit a absolute */
+        top: 50%;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    .prev {
+        left: 0; /* Aggiunto */
+    }
+
+    .next {
+        right: 0; /* Aggiunto */
     }
 
     .center {
@@ -54,20 +81,11 @@
         z-index: 10;
     }
 
-    #menuservizio {
-        width: 100%;
-        background-color: #f2f2f2;
-        text-align: center;
-        margin: 0 0.6em 0 0.7em;
-         padding: 0.25em 0;
-        direction: ltr;
-    }
-
     h3 {
-        background-color: #aaacad;;
-        color: #fff;
-        text-align: center;
+        background-color:#880808;
+        color: #ffffff; /* Modificato da rgb(7, 7, 7) a #ffffff per una migliore leggibilità */
         padding: 10px;
+        text-align: center;
     }
 
     p {
@@ -101,55 +119,67 @@
 </head>
 <body>
 <header>
-    <form action="#" method="get">
-        <label for="search" style="color: #fff;">Cerca:</label>
-        <input type="text" id="search" name="search">
-        <input type="submit" value="Cerca">
-    </form>
+     <h1>Welcome in the Mas☥0uerade Infranet</h1>
 </header>
-<div class="left">
-    <img src="./wikiLogo.jpg" alt="Mia Immagine" style="max-width: 100%; height: auto;">
-    <nav id="menuservizio">
-        <ul>
-            <li><a href="#" style="color: #0072b5;">Home</a></li>
-            <li><a href="./Gruppi.html" style="color: #0072b5;">Gruppi</a></li>
-            <li><a href="./Notizie.html" style="color: #0072b5;">Notizie</a></li>
-            <li><a href="./VIP.html" style="color: #0072b5;">VIP</a></li>
-            <li><a href="https://www.google.com/maps/d/edit?mid=1LJ9jY2cyMVz_hQ_pE3J89OSoaohcGJM&usp=sharing"style="color: #0072b5;">MAPPA</a></li>
-        </ul>
-    </nav>
-</div>
 <div class="center">
     <div class="section">
-        <h3>NOTIZIE DEL GIORNO</h3>
-        <p>
-            Roma, 22 Maggio 2023 - Un'operazione congiunta senza precedenti tra polizia, militari e carabinieri ha avuto luogo nelle prime ore di oggi, lasciando i cittadini di Roma in uno stato di confusione e preoccupazione.
-            <a href="./EsercitazioneCongiunta.html" style="color: #0072b5; text-decoration: none;">Continua a leggere l'articolo</a>
-        </p>
-        <p>
-        Roma, 24 Maggio 2023 – Roma, 24 Maggio 2023 - La capitale italiana è stata teatro di un'operazione di polizia senza precedenti nella giornata del 22 maggio, quando un'ampia serie di azioni coordinate tra diversi reparti di polizia e carabinieri ha portato alla luce  l'esistenza di una setta satanica.
-         Questo gruppo, operante nelle strade di Roma, è stato scoperto mentre si dedicava a pratiche criminali che includono il traffico di esseri umani e lo spaccio di sostanze illecite, aggravate da tattiche intimidatorie e metodi mafiosi.
-        <a href="./ScopertaSetta.html" style="color: #0072b5; text-decoration: none;">Continua a leggere l'articolo</a>
-        </p>
-        <p>
-        Roma, 24 Maggio 2023 - Roma - Esplosione nel cuore della città: il dramma del Palazzo del Grillo,
-           Un'esplosione ha scosso le fondamenta del centro storico ieri mattina, quando il noto Palazzo del Grillo è stato distrutto in un evento catastrofico che ha lasciato la città in lutto.      
-            <a href="./esplosioneDiDiomede.html" style="color: #0072b5; text-decoration: none;">Continua a leggere l'articolo</a>
-        </p>
-        <p>
-            Roma, 24 Maggio 2023 - Una serie di tragici eventi ha colpito il cuore della Capitale nella notte, con tre distinte esplosioni che hanno seminato distruzione e lutto.
-            GLi investigatori stanno collaborando per determinare le cause degli incidenti, escludendo al momento ipotesi di atti criminali o terroristici.
-           <a href="./suntoEsplosioni.html" style="color: #0072b5; text-decoration: none;">Continua a leggere l'articolo</a>
-        </p>
-        <h3>LINK UTILI</h3>
-        <ul>
-            <li><a href="https://www.cimitericapitolini.it/public/files/cimiteri-di-roma/elenco-cimiteri/AMA_Mappa_Verano_A3_2015_V4_WEB.pdf" style="color: #0072b5;">Mappa del Verano</a></li>
-            <li><a href="https://biotechgenix.github.io" style="color: #0072b5;">BioTechGenix</a></li>
-            <li><a href="./gestionePg/gestionePG.html">Gestione personaggi</a></li>
-        </ul>
+        <h3>NOVITA'</h3>
+        <div class="image-container">
+            <div class="image-slide">
+                <img src="./prova1.jpg" alt="Immagine 1">
+                <p>Testo sovrapposto 1</p>
+            </div>
+            <div class="image-slide">
+                <img src="./prova2.png" alt="Immagine 2">
+                <p>Testo sovrapposto 2</p>
+            </div>
+            <div class="image-slide">
+                <img src="./prova3.webp" alt="Immagine 3">
+                <p>Testo sovrapposto 3</p>
+            </div>
+        </div>
     </div>
 </div>
-</body>
-</html>
+<div class="navigators">
+    <button id="prev">Precedente</button>
+    <button id="next">Successivo</button>
+</div>
+<div class="button-section">
+    <button onclick="window.location.href='https://it.wikipedia.org';">
+        <img src="./wikiLogo.jpg" alt="Logo Wikipedia" style="width: 20px; height: 20px;">
+        Wikipedia
+    </button>        
+    <button onclick="window.location.href='https://www.google.it/maps';">
+        <img src=".\mappe.png" alt="Logo mappe" style="width: 20px; height: 20px;">
+        Mappe
+    </button>    
+    <button onclick="window.location.href='link_utili.html';">
+        <img src="./links.jpg" alt="Logo link utili" style="width: 20px; height: 20px;">
+        Link utili
+    </button>     
+</div>
+<script>
+    let index = 0;
+    let slides = document.querySelectorAll('.image-slide');
 
+    window.onload = function() {
+        // Nascondi tutte le slide tranne la prima
+        for (let i = 1; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+
+        document.getElementById('next').addEventListener('click', () => {
+            slides[index].style.display = 'none';
+            index = (index + 1) % slides.length;
+            slides[index].style.display = 'block';
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            slides[index].style.display = 'none';
+            index = (index - 1 + slides.length) % slides.length;
+            slides[index].style.display = 'block';
+        });
+    }
+</script>
+</body>
 </html>
