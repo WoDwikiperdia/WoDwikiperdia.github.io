@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lampeggiante e Rotante</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+        }
+        .char {
+            font-size: 50px;
+            color: #0F0;
+            letter-spacing: 2px; /* Aggiunto spazio tra i caratteri */
+            animation: blink 5s infinite alternate, rotate-clockwise 4s infinite linear;
+        }
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes rotate-clockwise {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+        @keyframes rotate-counterclockwise {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(-360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    </div>
+
+    <script>
+        const text = "ʟ̴͔͚̭̽̌͜ ̷̰̘̠̳̫̮͒̈̀̉̀օ̴̡̛̻̖̎͊̆̚ ̷̢̢̳͌͒ǟ̸͎̦͂̓̓̑͝ ̷̼̮̘̿̀̒̆̈́͘͠ɖ̴̝̗̼̬̠͚͍̈̈́̏̽̎ ̸̛̲͍̯̫̙̣̝̐̓̈̈̚ɨ̶̞̪͎͚̩͉̼̓̈͌̑̐͠ ̶̫͇̪̖̫͆̃͋ռ̵̦̈͒͌ ̷̛͖͍̣͕̝͍̭͆̎ɢ̷͂̉̾͗̚ͅ"; // Puoi cambiare questo testo con qualsiasi stringa
+        const container = document.querySelector('.container');
+
+        text.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.classList.add('char');
+            
+            // Alterna la direzione della rotazione tra orario e antiorario
+            if (index % 2 === 0) {
+                span.style.animation = 'blink 2s infinite alternate, rotate-clockwise 4s infinite linear';
+            } else {
+                span.style.animation = 'blink 2s infinite alternate, rotate-counterclockwise 4s infinite linear';
+            }
+
+            container.appendChild(span);
+        });
+    </script>
+</body>
+</html>
