@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +29,7 @@
         justify-content: center;
         align-items: center;
         width: 100%; /* Larghezza al 100% */
-        height: 100px; /* Imposta l'altezza come desideri */
+        height: 650px; /* Imposta l'altezza come desideri */
     }
 
     .button-section {
@@ -46,7 +45,7 @@
     .image-slide img {
         width: 100%;
         height: 100%;
-        object-fit: cover; 
+        object-fit:contain; 
     }
 
     .navigators{
@@ -126,15 +125,15 @@
         <h3>NOVITA'</h3>
         <div class="image-container">
             <div class="image-slide">
-                <img src="./prova1.jpg" alt="Immagine 1">
+                <img src="./NewLook.jpg" alt="Immagine 1">
                 <p>Testo sovrapposto 1</p>
             </div>
             <div class="image-slide">
-                <img src="./prova2.png" alt="Immagine 2">
+                <img src="./MapAddon.jpg" alt="Immagine 2">
                 <p>Testo sovrapposto 2</p>
             </div>
             <div class="image-slide">
-                <img src="./prova3.webp" alt="Immagine 3">
+                <img src="./SecurityImprovement.jpg" alt="Immagine 3">
                 <p>Testo sovrapposto 3</p>
             </div>
         </div>
@@ -145,15 +144,19 @@
     <button id="next">Successivo</button>
 </div>
 <div class="button-section">
-    <button onclick="window.location.href='https://it.wikipedia.org';">
+    <button onclick="window.location.href='./Wikipedia/wikipedia.html'">
         <img src="./wikiLogo.jpg" alt="Logo Wikipedia" style="width: 20px; height: 20px;">
         Wikipedia
     </button>        
-    <button onclick="window.location.href='https://www.google.it/maps';">
+    <button onclick="window.location.href='https://www.google.com/maps/d/u/0/edit?mid=1LJ9jY2cyMVz_hQ_pE3J89OSoaohcGJM&usp=sharing'">
         <img src=".\mappe.png" alt="Logo mappe" style="width: 20px; height: 20px;">
         Mappe
-    </button>    
-    <button onclick="window.location.href='link_utili.html';">
+    </button>  
+    <button onclick="window.location.href='./Notizie/Notizie.html'">
+        <img src="./news.jpg" alt="Logo mappe" style="width: 20px; height: 20px;">
+        News
+    </button>     
+    <button onclick="window.location.href='./link_utili.html';">
         <img src="./links.jpg" alt="Logo link utili" style="width: 20px; height: 20px;">
         Link utili
     </button>     
