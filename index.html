@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
 <style>
@@ -44,40 +45,6 @@ input[type="submit"]:hover {
     opacity: 0.8;
 }
 </style>
-    <script>
-     var isLogged = false;
-        function loginFunction() {
-            if (!isLogged) {
-                // Ottieni l'orario corrente nel formato hh:mm
-                var username = document.getElementById('username').value;
-                var password = document.getElementById('password').value;;
-                userNAME = username;
-                var date = new Date();
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var currentTime = (hours < 10 ? "0" : "") + hours + (minutes < 10 ? "0" : "") + minutes;
-                var correctPassword = ""; // Inizializza correctPassword come stringa vuota
-                if (username == "Maxx") { correctPassword = "Gaetano"; }
-                else if (username == "Elettra") { correctPassword = "Caterina"; }
-                else if (username == "Emma") { correctPassword = "Laura"; }
-                else if (username == "Vitali") { correctPassword = "Roberto"; }
-                else if (username == "SuorCristina") { correctPassword = "Eugenia"; }
-                var composedPassword = correctPassword + currentTime;
-                if ((username == "Maxx" && password == composedPassword) ||
-                    (username == "Elettra" && password == composedPassword) ||
-                    (username == "Emma" && password == composedPassword) ||
-                    (username == "Vitali" && password == composedPassword) ||
-                    (username == "SuorCristina" && password == composedPassword)) { isLogged = true;showHomePage(isLogged); }
-
-            }
-        }
- function showHomePage(isLogged) {
-   if(isLogged){
-      window.location.href ="https://wodwikiperdia.github.io/firstLoad.html"
-     }
- 
-    }
-    </script>
 <title>Homepage Intranet</title>
 </head>
 <body>
@@ -87,8 +54,10 @@ input[type="submit"]:hover {
         <input type="text" id="username" name="username"><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br>
-        <input type="button" value="Accedi" onclick=  loginFunction()>
+        <input type="button" value="Accedi" id="loginButton">
+		<div id="login-status"></div>
+		<div id="data-output"></div>
     </form>
+<script src="./GestioneAccessi/firstLogin.js"></script>
 </body>
 </html>
-
