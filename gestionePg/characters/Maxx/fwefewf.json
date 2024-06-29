@@ -18,6 +18,8 @@
   "intelligenza": 3,
   "prontezza": 3,
   "fermezza": 3,
+  "vita":5,
+  "volonta":5,
   "armidaFuoco": 0,
   "atletica": 0,
   "criminalita": 4,
